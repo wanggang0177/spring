@@ -1,0 +1,13 @@
+ @Component是Spring中所有bean组件的通用形式, @Repository @Service @Controller 则是 @Component的细化,用来表示更具体的用例，分别对应了持久化层、服务层和表现层。但是至少到现在为止这个四种注解的实质区别很小(甚至几乎没有),都是把当前类注册为spring容器中的一个bean。
+ 
+ @Value  注入基本属性（int,String等等）
+ 
+ @Autowired默认按照byType匹配的方式进行注入,如果没有一个bean的类型是匹配的则会抛异常,如果有多个bean的类型都匹配成功了,那么再按byName方式进行选择；
+ @Autowired可以结合 @Qualifier("beanName")来使用,则可以达到byName的效果
+ @Autowired使用后需要在xml文件加入以下配置才能生效:
+      <context:annotation-config/>   
+      
+ @Resource的作用和 @Autowired差不多,只不过@Resource是默认先用byname,如果找不到合适的就再用bytype来注入
+ @Resource有俩个属性,name和type,使用name属性则表示要byName匹配,使用type属性则表示要byType匹配
+ @Resource使用后需要在xml文件加入以下配置才能生效:
+      <context:annotation-config/>

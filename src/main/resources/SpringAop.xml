@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	   http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+ 
+    <!--接口注入-->
+    <bean id="mysqlimple" class="com.test.aop.imple.MySQLImpl"/>
+    <bean id="oracleimple" class="com.test.aop.imple.OracleImple"/>
+    <bean id="service" class="com.test.aop.service.Service">
+        <property name="dao" ref = "mysqlimple"></property>
+    </bean>
+    
+    <bean id="transaction" class="com.test.aop.Transaction"/>
+    
+    <aop:config>
+        <aop:aspect ref="transaction">
+        	<!--切入点-->
+            <aop:pointcut expression="execution(* com.test.aop.service.*.*(..))" id="add"/>
+            <aop:before pointcut-ref="add" method="startTransaction" />
+            <aop:after pointcut-ref="add" method="commitTransaction" />
+        </aop:aspect>
+    </aop:config>
+</beans>
