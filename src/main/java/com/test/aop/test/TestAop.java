@@ -13,8 +13,6 @@ public class TestAop
                 "SpringAop.xml");
         Service service = (Service) context.getBean("service");
         service.add("test add 。。。");
-        
-        
         service.del("test del 。。。");
 	}
 }
